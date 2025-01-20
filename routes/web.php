@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [PostController::class, 'index'])->name('feed');
     Route::post('/votes', [VoteController::class, 'store'])->name('votes.store');
     Route::post('/follow', [PostFollowerController::class, 'store'])->name('follow.store');
+    Route::post('/posts/{post}/conclude', [PostController::class, 'conclude'])->name('posts.conclude');
 
 });
 

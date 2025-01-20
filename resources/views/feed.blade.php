@@ -95,6 +95,14 @@
                                     </span>
                                 </form>
                             </div>
+                            @if($post->user_id === Auth::id() && $post->status != 'concluido')
+                            <div class="complete-btn-wrapper h-6 text-green-500 flex items-center justify-center mt-1">
+                                <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
+                                    @csrf
+                                    <button type="submit" class="text-green-500 p-2"><i class="bi bi-check-circle"></i></button>
+                                </form>
+                            </div>
+                            @endif
                             <span>
                                 @if($post->user_id === Auth::id() && $post->total_pfs == 0)
                                 <div class="delete-btn-wrapper h-6 text-red-500 flex items-center justify-center mt-1">

@@ -43,6 +43,7 @@ class PostController extends Controller
                 $join->on('post_followers.post_id', '=', 'posts.id')
                     ->where('post_followers.user_id', Auth::user()->id);
             })
+            ->where('posts.status', 'ativo')
             ->leftJoin('post_followers as all_pf', 'all_pf.post_id', 'posts.id')
             ->groupBy('posts.id', 'votes.id', 'posts.user_id', 'posts.title', 'posts.description', 'posts.category', 'votes.recommends', 'post_followers.id')
             ->orderByDesc('posts.id');
@@ -91,17 +92,26 @@ class PostController extends Controller
 
     public function destroy(string $id)
     {
-            // Encontra o post pelo ID
-            $post = Post::findOrFail($id);
+        $post = Post::findOrFail($id);
 
-            if ($post->user_id !== Auth::id()) {
-                return redirect()->back()->with('error', 'Você não tem permissão para deletar este post.');
-            }
+        if ($post->user_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'Você não tem permissão para deletar este post.');
+        }
 
-            $post->delete();
+        $post->delete();
 
-            return redirect()->route('feed')->with('success', 'Post deletado com sucesso!');
+        return redirect()->route('feed')->with('success', 'Post deletado com sucesso!');
+    }
 
+    public function conclude(Post $post)
+    {
+
+        if ($post->user_id === Auth::id()) {
+            $post->status = 'concluido';
+            $post->save();
+        }
+
+        return redirect()->route('feed')->with('success', 'Postagem concluída!');
     }
 
 }
