@@ -95,26 +95,32 @@
                                     </span>
                                 </form>
                             </div>
-                            @if($post->user_id === Auth::id() && $post->status != 'concluido')
-                            <div class="complete-btn-wrapper h-6 text-green-500 flex items-center justify-center mt-1">
-                                <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
-                                    @csrf
-                                    <button type="submit" class="text-green-500 p-2"><i class="bi bi-check-circle"></i></button>
-                                </form>
-                            </div>
-                            @endif
-                            <span>
-                                @if($post->user_id === Auth::id() && $post->total_pfs == 0)
-                                <div class="delete-btn-wrapper h-6 text-red-500 flex items-center justify-center mt-1">
-                                    <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
+                            <div class="wrapper-btns flex h-6 items-center" >
+                                @if($post->user_id === Auth::id() && $post->status != 'concluido')
+                                <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
+                                    <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
                                         @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" value="{{ $post['id'] }}" name="post_id"></input>
-                                        <button type="submit" class="text-red-500 p-2"><i class="bi bi-trash"></i></button>
+                                        <button type="submit" class="text-green-500 p-2">
+                                            <i class="bi bi-check-circle"></i>
+                                        </button>
                                     </form>
                                 </div>
                                 @endif
-                            </span>
+                                <span>
+                                    @if($post->user_id === Auth::id() && $post->total_pfs == 0)
+                                    <div class="delete-btn-wrapper text-red-500 flex items-center justify-center">
+                                        <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" value="{{ $post['id'] }}" name="post_id"></input>
+                                            <button type="submit" class="text-red-500 ">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    @endif
+                                </span>
+                            </div>
                             </div>
                             <div class="recommends-container flex justify-between mt-2">
                                 <form method="POST" action="{{ route('votes.store') }}">
@@ -199,18 +205,32 @@
                                                 </span>
                                             </form>
                                         </div>
-                                        <span>
-                                            @if($post->user_id === Auth::id() && $post->total_pfs == 0)
-                                            <div class="delete-btn-wrapper h-6 text-red-500 flex items-center justify-center mt-1" >
-                                                <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
+                                        <div class="wrapper-btns flex h-6 items-center" >
+                                            @if($post->user_id === Auth::id() && $post->status != 'concluido')
+                                            <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
+                                                <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" value="{{ $post['id'] }}" name="post_id"></input>
-                                                    <button type="submit" class="text-red-500 p-2"><i class="bi bi-trash"></i></button>
+                                                    <button type="submit" class="text-green-500 p-2">
+                                                        <i class="bi bi-check-circle"></i>
+                                                    </button>
                                                 </form>
                                             </div>
                                             @endif
-                                        </span>
+                                            <span>
+                                                @if($post->user_id === Auth::id() && $post->total_pfs == 0)
+                                                <div class="delete-btn-wrapper text-red-500 flex items-center justify-center">
+                                                    <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <input type="hidden" value="{{ $post['id'] }}" name="post_id"></input>
+                                                        <button type="submit" class="text-red-500 ">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                @endif
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="recommends-container flex justify-between mt-2">
                                         <form method="POST" action="{{ route('votes.store') }}">
