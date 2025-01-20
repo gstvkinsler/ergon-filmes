@@ -21,7 +21,7 @@
                     </li>
                 </div>
                 <div class="btn">
-                    <button id="openModalButton" class="btn btn-primary w-5 h-5 flex justify-center items-center mt-2" style="background-color: #4F46E5;">
+                    <button id="openModalButton" class="btn btn-primary w-5 h-5 flex justify-center items-center mt-2" style="background-color: #4F46E5;" title="Criar post">
                         <p class="text-center">+</p>
                     </button>
                 </div>
@@ -95,12 +95,12 @@
                                     </span>
                                 </form>
                             </div>
-                            <div class="wrapper-btns flex h-6 items-center" >
+                            <div class="wrapper-btns flex h-6  items-center" >
                                 @if($post->user_id === Auth::id() && $post->status != 'concluido')
                                 <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
                                     <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
                                         @csrf
-                                        <button type="submit" class="text-green-500 p-2">
+                                        <button type="submit" class="text-green-500 p-2" title="Concluir Post">
                                             <i class="bi bi-check-circle"></i>
                                         </button>
                                     </form>
@@ -108,12 +108,12 @@
                                 @endif
                                 <span>
                                     @if($post->user_id === Auth::id() && $post->total_pfs == 0)
-                                    <div class="delete-btn-wrapper text-red-500 flex items-center justify-center">
+                                    <div class="delete-btn-wrapper text-red-500" style="margin-top: 1px;">
                                         <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
                                             @csrf
                                             @method('DELETE')
                                             <input type="hidden" value="{{ $post['id'] }}" name="post_id"></input>
-                                            <button type="submit" class="text-red-500 ">
+                                            <button type="submit" class="text-red-500 " title="Deletar Post">
                                                 <i class="bi bi-trash"></i>
                                             </button>
                                         </form>
@@ -210,7 +210,7 @@
                                             <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
                                                 <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
                                                     @csrf
-                                                    <button type="submit" class="text-green-500 p-2">
+                                                    <button type="submit" class="text-green-500 p-2" title="Concluir Post">
                                                         <i class="bi bi-check-circle"></i>
                                                     </button>
                                                 </form>
