@@ -177,7 +177,7 @@
                                                 </div>
                                             </div>
                                             <div class="teste">
-                                                <p class="feed-descricao ml-1">Descrição: {{ $post['description'] }}</p>
+                                                <p class="feed-descricao ml-1 mt-2">Descrição: {{ $post['description'] }}</p>
                                             </div>
                                         </div>
                                     </div>
