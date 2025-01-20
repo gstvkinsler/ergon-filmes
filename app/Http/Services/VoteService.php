@@ -36,7 +36,7 @@ class VoteService
         }
 
         $postFollower = PostFollower::where('user_id', $user->id)->where('post_id', $post->id)->first();
-        dd($postFollower);
+
         if(!$postFollower){
             PostFollower::create([
                 'user_id' => $user->id,

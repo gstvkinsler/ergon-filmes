@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -25,7 +26,7 @@ class PostController extends Controller
 
         try {
             $post = $this->postService->register($validations);
-            return $this->index($request);
+            return redirect()->route('feed')->with('success', 'Postagem criada com sucesso!');
         } catch (\Throwable $e) {
             return view('error');
         }
@@ -33,7 +34,7 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $query = Post::select('posts.*', 'votes.recommends', 'post_followers.id as is_following')
+        $query = Post::select('posts.id', 'posts.user_id', 'posts.title', 'posts.description', 'posts.category', 'votes.recommends', 'post_followers.id as is_following', DB::raw('count(all_pf.id) as total_pfs'))
             ->leftJoin('votes', function ($join) {
                 $join->on('votes.post_id', '=', 'posts.id')
                     ->where('votes.user_id', Auth::user()->id);
@@ -42,7 +43,9 @@ class PostController extends Controller
                 $join->on('post_followers.post_id', '=', 'posts.id')
                     ->where('post_followers.user_id', Auth::user()->id);
             })
-            ->orderBy('posts.id');
+            ->leftJoin('post_followers as all_pf', 'all_pf.post_id', 'posts.id')
+            ->groupBy('posts.id', 'votes.id', 'posts.user_id', 'posts.title', 'posts.description', 'posts.category', 'votes.recommends', 'post_followers.id')
+            ->orderByDesc('posts.id');
 
         if ($request->input('tab') === 'followed') {
             $query->whereNotNull('post_followers.id');
@@ -85,4 +88,20 @@ class PostController extends Controller
             ], 400);
         }
     }
+
+    public function destroy(string $id)
+    {
+            // Encontra o post pelo ID
+            $post = Post::findOrFail($id);
+
+            if ($post->user_id !== Auth::id()) {
+                return redirect()->back()->with('error', 'Você não tem permissão para deletar este post.');
+            }
+
+            $post->delete();
+
+            return redirect()->route('feed')->with('success', 'Post deletado com sucesso!');
+
+    }
+
 }

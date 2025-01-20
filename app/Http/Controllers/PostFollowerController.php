@@ -28,20 +28,14 @@ class PostFollowerController extends Controller
         return redirect()->intended(route('feed', absolute: false));
     }
 
-    public function unfollow($id) : JsonResponse
+    public function destroy($id)
     {
         $response = $this->postFollowerService->unfollowPost($id);
 
-        if (!$response) {
-            return response()->json([
-                "status" => false,
-                "message" => "Postagem não encontrada!"
-            ], 404);
+        if($response['status'] === false){
+            return view('error');
         }
 
-        return response()->json([
-            "status" => true,
-            "message" => "Você deixou de seguir esta postagem!"
-        ], 200);
+        return redirect()->intended(route('feed', absolute: false));
     }
 }

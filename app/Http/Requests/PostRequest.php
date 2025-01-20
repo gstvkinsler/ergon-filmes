@@ -23,7 +23,7 @@ class PostRequest extends FormRequest
     {
         $rules = [
             'title' => 'required|string|max:30',
-            'description' => 'required|string|max:30',
+            'description' => 'required|string|max:300',
             'category' => 'required|string|max:30',
             'status' => 'string|max:30',
         ];
