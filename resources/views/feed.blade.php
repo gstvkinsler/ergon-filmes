@@ -278,7 +278,7 @@
                                 class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 @error('status') border-red-500 @enderror">
                                 <option value="">Selecione o status</option>
                                 <option value="ativo" {{ old('status') == 'ativo' ? 'selected' : '' }}>Ativo</option>
-                                <option value="inativo" {{ old('status') == 'inativo' ? 'selected' : '' }}>Inativo</option>
+                                <option value="concluido" {{ old('status') == 'concluido' ? 'selected' : '' }}>Concluido</option>
                             </select>
                             @error('status')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
