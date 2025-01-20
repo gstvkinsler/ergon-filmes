@@ -22,7 +22,7 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'title' => 'required|string|max:30',
+            'title' => 'required|string|max:200',
             'description' => 'required|string|max:300',
             'category' => 'required|string|max:30',
             'status' => 'string|max:30',
