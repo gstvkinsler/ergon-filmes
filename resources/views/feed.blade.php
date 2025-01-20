@@ -192,7 +192,7 @@
                                             </form>
                                         </div>
                                         <span>
-                                            @if($post->user_id === Auth::id())
+                                            @if($post->user_id === Auth::id() && $post->total_pfs == 0)
                                             <div class="delete-btn-wrapper h-6 text-red-500 flex items-center justify-center mt-1" >
                                                 <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
                                                     @csrf
