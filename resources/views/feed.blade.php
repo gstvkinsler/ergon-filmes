@@ -205,7 +205,7 @@
                                                 </span>
                                             </form>
                                         </div>
-                                        <div class="wrapper-btns flex h-6 items-center" >
+                                        <div class="wrapper-btns flex h-6 items-center" style="margin-top: 2px">
                                             @if($post->user_id === Auth::id() && $post->status != 'concluido')
                                             <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
                                                 <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
