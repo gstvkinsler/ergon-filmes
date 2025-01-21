@@ -95,7 +95,7 @@
                                     </span>
                                 </form>
                             </div>
-                            <div class="wrapper-btns flex h-6  items-center" >
+                            <div class="wrapper-btns flex h-6  items-center" style="margin-top: 2px;">
                                 @if($post->user_id === Auth::id() && $post->status != 'concluido')
                                 <div class="complete-btn-wrapper text-green-500 flex items-center justify-center">
                                     <form method="POST" action="{{ route('posts.conclude', $post->id) }}">
@@ -108,7 +108,7 @@
                                 @endif
                                 <span>
                                     @if($post->user_id === Auth::id() && $post->total_pfs == 0)
-                                    <div class="delete-btn-wrapper text-red-500" style="margin-top: 1px;">
+                                    <div class="delete-btn-wrapper text-red-500" style="margin-top: 2px;">
                                         <form method="POST" action="{{ route('posts.destroy', $post->id) }}" onsubmit="return confirm('Você tem certeza que deseja deletar este post?');">
                                             @csrf
                                             @method('DELETE')
