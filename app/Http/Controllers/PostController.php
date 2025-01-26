@@ -57,11 +57,6 @@ class PostController extends Controller
         return view('feed', compact('posts'));
     }
 
-    public function create()
-    {
-        return view('feed-form');
-    }
-
 
     public function show(Post $id){
         return response()->json([
